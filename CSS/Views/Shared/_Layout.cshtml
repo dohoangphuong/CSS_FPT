@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Scripts.Render("~/bundles/modernizr")
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+        @Styles.Render("~/Content/css")
+    </head>
+    <body style="position:relative; min-height:100%">
+        <div id="left-menu-background"></div>
+        <header id="banner">
+            <div class="member-box">
+                @if (Request.IsAuthenticated)
+                {
+                    <text>
+                        <text style="color:yellow">Hello @User.Identity.Name!</text>
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+                            @Html.AntiForgeryToken()
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                        }
+                    </text>
+                }
+                else
+                {
+                    Html.RenderAction("Login", "Account");
+                }
+            </div>
+
+            <a href="/">
+                <img src="/Images/CSS.png" alt="CSS logo" id="logo" />
+            </a>
+        </header>
+
+        <div class="container-fluid">
+            <div id="body" class="row">
+                
+                <div id="left-menu" class="col-sm-2">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <h4>Coporate Sales Solution</h4>
+                        <div id="menu-function">
+                            <ul class="top-ul">
+                                <li><a href="/">Home</a></li>
+                                <li>Agreements
+                                    <ul class="child-ul">
+                                        <li>@Html.ActionLink("Add new", "AddAgreement", "Agreement")</li>
+                                        <li>@Html.ActionLink("Search Agreement", "SearchAgreement", "Agreement")</li>
+                                        <li><a href="#">Awaiting approve</a></li>
+                                        <li>@Html.ActionLink("Agreement statics", "Statics", "Agreement")</li>  
+                                    </ul>
+                                </li>
+                                <li>Claim
+                                    <ul class="child-ul">
+                                        <li><a href="#">Create maunal</a></li>
+                                        <li><a href="#">Exception</a></li>
+                                        <li><a href="#">Search</a></li>
+                                        <li><a href="#">Daily static</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                </div>
+                <div id="content" class="col-sm-10">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        @Scripts.Render("~/bundles/jqueryval")     
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

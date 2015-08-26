@@ -1,0 +1,295 @@
+﻿.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.centre {
+    text-align:center;
+}
+/* main layout
+----------------------------------------------------------*/
+#banner {
+    background-image:url(../IMAGES/blue-banner.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
+    height:55px;
+}
+
+    #banner .member-box {
+        float:right;
+        padding-top:10px;
+        padding-right:10px;
+    }
+
+        .member-box input {
+            margin-left:5px;
+        }
+
+        .member-box a {
+            color:#fff;
+        }
+
+    #banner #logo {
+    margin-top:5px;
+    margin-left:65px;
+}
+
+#left-menu-background {
+    border-right:groove;
+    position: fixed;
+    width:17%;
+    overflow: visible;
+    top: 55px;
+    bottom: 0;
+}
+
+#left-menu {
+}
+
+    #left-menu h4 {
+        color:blue;
+    }
+
+    #left-menu #menu-function {
+    }
+
+        #menu-function .top-ul{
+            color:gray;
+            font-weight:600;
+            list-style-type:none;
+            padding-left:0px;
+        }
+
+            .top-ul li {
+                margin-bottom:10px;
+            }
+
+            .top-ul .child-ul {
+                color:gray;
+                font-weight:normal;
+                list-style-type: disc;
+            }
+
+                .child-ul li{
+                    margin-bottom:auto;
+                }
+
+    #left-menu a {
+        color:gray;
+    }
+#content {
+}
+
+/* page elements
+----------------------------------------------------------*/
+/* text decorate */
+.blue-text {
+    color:blue;
+}
+
+.gray-text {
+    color:gray;
+}
+
+/*Submit link*/
+.submitLink {
+  background-color: transparent;
+  text-decoration: underline;
+  border: none;
+  color: blue;
+  cursor: pointer;
+}
+
+submitLink:focus {
+  outline: none;
+}
+
+/* fill form */
+.fill-form {
+}
+
+    .fill-form label{
+        width:15%;
+    }
+
+    .fill-form input[type=text]{
+        width:25%;
+    }
+
+    .fill-form input[type=password]{
+        width:25%;
+    }
+
+#logoutForm {
+    display: inline;
+}
+
+/* static list */
+.label-stt {
+    width:15%;
+}
+
+.label-count {
+    width:5%;
+}
+
+/* copy infomation list */
+.width20 {
+    width:20%;
+}
+
+/* static table */
+.static-table {
+    width:200px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/* action panel */
+.action-panel {
+    bottom:0;
+    float:right;
+}
+
+/* info and errors */
+.message-info {
+    border: 1px solid;
+    clear: both;
+    padding: 10px 20px;
+}
+
+.message-error {
+    clear: both;
+    color: #e80c4d;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.message-success {
+    color: #7ac0da;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.error {
+    color: #e80c4d;
+}
+
+.alert-block {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #e80c4d;
+    font-weight: bold;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #e80c4d;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #e80c4d;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+/*Reject Agreement*/
+
+.titleRejectAgreement {
+    text-align: center;
+}
+
+.atrributes {
+
+    margin-top: 70px;
+
+}
+.reasonbody {
+    float:right;
+    margin-right:390px;
+}
+.contentatrributes {
+    float:right;
+    margin-right: 800px;
+    color:blue;
+}
+.labelreject {
+    float:left;
+    margin-left:10px;
+}
+
+.bottomMenuReject {
+    
+    float:right;
+    margin-right:400px;
+    margin-top: 20px;
+}
+.labelatrributes {
+    color:gray;
+    font-size:12px;
+    margin-left:20px;
+}
+.bottomMenuArea {
+   margin-left: 700px;
+   margin-top: 130px;
+
+}
+
+/*Search Agreement*/
+
+.labelsearch {
+    color:gray;
+    font-size:12px;
+    margin-left:20px;
+    float:left;
+}
+.inputsearch {
+    float:right;
+    margin-right: 700px;
+    color:blue;
+}
+.results{
+    margin-top: 10px;
+    width: 1000px;
+    margin-left:0;
+    float:left;
+}
+input[type=text] {height:21px;width:200px;}
+
+.bottomMenuSearch {
+    bottom:0;
+    position:absolute;
+    float:left;
+    right:120px;
+    margin-top: 10px;
+    
+  
+}
+.searchAgreementButton {
+    float:left;
+    margin-top: 25px;
+    margin-left: 250px;
+}
+

@@ -1,0 +1,105 @@
+﻿@model CSS.ViewModels.SearchCustomer
+
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    function forward() {
+        //call function goForward of smartWizard
+        $("#wizard").smartWizard("goForward");
+    }
+    function backward() {
+        //call function goBackward of smartWizard
+        $("#wizard").smartWizard("goBackward");
+    }
+    function checkSelectedCustomer() {
+        var selected = $("#customerResults input[type='radio']:checked");
+        if (selected.length == 1) {
+            alert(selected.val())
+        }
+        else {
+            alert("Please select 1 customer.");
+        }
+    }
+    $(document).ready(function () {
+        $("#ajaxCreateAgrmnt").click(function () {
+            var selected = $("#customerResults input[type='radio']:checked");
+            if (selected.length != 1) {
+                alert("Please select 1 customer.");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "/Agreement/CreateAgreement",
+                    data: { rfoNumber: selected.val() },
+                    success: function (result) {
+                        $("#step-2").html(result);
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+@using (Ajax.BeginForm("SearchCustomer", "Agreement"
+    , new AjaxOptions
+    {
+        HttpMethod = "POST",
+        OnSuccess = "onCreateEvolucionesGetSuccess",
+        UpdateTargetId = "customerResults"
+    }, new { @style = "height: 100%" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="height: 40%">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IsSelected)
+        <div class="form-group">
+            @Html.LabelFor(model => model.RFONumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RFONumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RFONumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedCustomerType.CustomerType1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SelectedCustomerType.CustomerTypeId, new SelectList(ViewBag.CustomerTypes, "CustomerTypeId", "CustomerType1"), new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PostCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.BusinessArea, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BusinessArea, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BusinessArea, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="customerResults" style="height: 50%">
+    </div>
+    <div class="actionBar" style="height: 10%">
+        <input id="ajaxCreateAgrmnt" class="buttonFinish" type="button" value="Create" />
+    </div>
+}
+
+

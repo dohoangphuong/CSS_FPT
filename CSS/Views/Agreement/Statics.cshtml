@@ -1,0 +1,74 @@
+﻿@model IEnumerable<CSS.Models.AgreementStatu>
+
+@{
+    ViewBag.Title = "AgreementStatics";
+}
+
+<div class="content-wrap">
+    <div class="centre">
+        <h3 class="blue-text">Coporate Sales Solution</h3>
+        <p class="gray-text">Recent activity</p>
+    </div>
+
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <label class="label-stt">@Html.ActionLink(@item.AgreementStatus, "Search", new { statusId = @item.StatusId})</label>
+                <label class="label-count">@item.Agreements.Where(x=> (x.CreatedBy == @User.Identity.Name) && ((DateTime.Now - (DateTime)x.LastUpdatedDate).TotalHours <= 24)).Count()</label>
+            </li>
+        }
+    </ul>
+    <br />
+</div>
+
+@using (Html.BeginForm()) {
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+    <p class="gray-text">Recently Accessed Agreement</p>
+    <table class="table table-striped" id ="recentTable">
+        <thead>
+            <tr class="info">
+                <th>Customer Name</th>
+                <th>Customer Code</th>
+                <th>Post code</th>
+                <th>CSM</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Agreement</th>
+                <th>Variant</th>
+                <th>Status</th>
+                <th>Select</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CSS.Models.Agreement item in ViewBag.recentAgreement)
+            {
+                <tr>
+                    @if(@item.RFONumbers.Count > 0)
+                    {
+                        <td>@item.RFONumbers.First().Company.Name</td>
+                        <td>@item.RFONumbers.First().RFONumber1</td>
+                        <td>@item.RFONumbers.First().PostCode</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    }
+                    <td></td>
+                    <td>@item.StartDate</td>
+                    <td>@item.EndDate</td>
+                    <td>@item.AgreementNumber</td>
+                    <td>@item.VariantNumber</td>
+                    <td>@item.AgreementStatu.AgreementStatus</td>
+                    <td>@Html.RadioButton("Select", @item.AgreementNumber + "/" + @item.VariantNumber)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="action-panel">
+        <button type="submit">View Agreement</button>
+    </div>
+}

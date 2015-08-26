@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "SearchAgreement";
+}
+
+<div class="searchagreementstyle">
+        <div class="titleRejectAgreement">
+            <h1 style="color:blue">Corporate Sales Solution</h1>
+            <h2 style="color:gray">Search Agreements</h2>
+         </div>
+
+        <div class="inputsearchagreement">
+                <div  class="labelsearch">
+                   
+                        <label for="type">Type: </label> 
+                        <br />
+                        <label for="name">Name</label>
+                        <br />
+                        <label for="customer">Custormer Code: </label>
+                        <br />
+                        <label for="postcode"> Post Code </label>
+                       <br />
+                       <br />                      
+                       <label for="csm">CSM</label>
+                       <br />
+                       <label for="approver">Approver </label>   
+                       <br />
+                       <label for="status">Status</label>
+                       <br />
+                       <label for="startdate">Start Date </label>
+                       <br />
+                       <label for="enddate"> End Date </label>
+                       <br />
+                        <label for="agreementnumber"> Agreement Number </label><br /><br />
+                </div>
+
+                <div class="inputsearch">
+                   
+                     <select id="customertype">
+                            <option>Fleet</option>
+                      </select>
+                    <br />
+                     <input type="text" id="name"/><br />
+                     <input type="text" id="customercode" /><br />
+                     <input type="text" id="postcode" /><br />
+                    <br />
+                    <select id="csm">
+                       <option> Tim slater</option>
+                    </select>
+                    <br />
+                    <select id="approver">
+                          <option>all</option>
+                    </select><br />
+                    <select id="status">
+                        <option>Approved</option>
+                    </select>
+                    <div id="stardatesearch">
+                        <script>
+                            $(function () {
+                                $("#startDate").datepicker();
+                            });
+                        </script>
+                        <input type="text" id="startDate" name="startDate" size="10"/><br />
+                    </div>
+                    <div id="enddatesearch">
+                         <script>
+
+                             $(function () {
+                                 $("#endDate").datepicker();
+                             });
+                        </script>
+                        <input type="text" id="endDate" name="endDate" size="10"/>
+                 </div>
+
+                     <input type="text" id="agreementNumber" />
+                </div>
+        </div>
+       <br /><br />
+       <div class="searchAgreementButton">
+            <img src="/Images/mark.png" alt="mark logo"/><a href="#">Search</a>
+       </div>
+   
+        <div id="results" class="results">
+            <table class="table">
+                <thead>
+                  <tr class="info">
+                    <th>RFO Number</th>
+                    <th>Customer</th>
+                    <th>PostCode</th>
+                    <th>CSM</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Agreement Number</th>
+                    <th>Status</th>
+                    <th>Select</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="active">
+                    <th>12345678</th>
+                    <th>Agribank</th>
+                    <th>770000</th>
+                    <th>ABDFC</th>
+                    <th>5/7/2014</th>
+                    <th>22/8/2015</th>
+                    <th>20125/1234</th>
+                    <th>Approver</th>
+                    <th><input type="radio" name="select"><br></th>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="bottomMenuSearch"> 
+             <img src="/Images/mark.png" alt="mark logo" />
+             <a href="#">View Audit History</a>
+             <img src="/Images/mark.png" alt="mark logo" />
+             <a href="#">Copy Agreement</a>
+             <img src="/Images/mark.png" alt="mark logo" />
+             <a href="#">View Agreement</a>
+        </div>
+</div>

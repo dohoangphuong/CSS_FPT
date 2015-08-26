@@ -1,0 +1,56 @@
+﻿@model CSS.Models.Agreement
+
+@{
+    ViewBag.Title = "AgreementStatics";
+    int? RFONumber = null;
+    string CustomerName = null;
+    if (@Model.RFONumbers.Count > 0)
+    {
+        RFONumber = Model.RFONumbers.First().RFONumber1;
+        CustomerName = Model.RFONumbers.First().Company.Name;
+    }
+}
+
+<div class="content-wrap centre">
+    <h3 class="blue-text">Coporate Sales Solution</h3>
+    <p class="gray-text">Copy Agreement</p>
+</div>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <ul style="list-style-type:none">
+        <li>
+            <label class="width20">Agreement Number</label>
+            <label class="width20 blue-text">@Model.AgreementNumber</label>
+        </li>
+        <li>
+            <label class="width20">Agreement Name</label>
+            <label class="width20 blue-text">@Model.Name</label>
+        </li>
+        <li>
+            <label class="width20">RFO Number</label>       
+            <label class="width20 blue-text">@RFONumber</label>
+
+        </li>
+        <li>
+            <label class="width20">Customer Name</label>
+            <label class="width20 blue-text">@CustomerName</label>
+        </li>
+        <li>
+            <label class="width20">Start Date</label>
+            <label class="width20 blue-text">@Model.StartDate</label>
+        </li>
+        <li>
+            <label class="width20">End Date</label>
+            <label class="width20 blue-text">@Model.EndDate</label>
+        </li>
+    </ul>
+    @Html.HiddenFor(m => m.VariantNumber);
+    <ul>
+        <li><button type="submit" class="submitLink" name="choice" value="1">Duplicate this agreement with a new variant: @Model.AgreementNumber/<b>@ViewBag.NewVariant</b></button></li>
+        <li><button type="submit" class="submitLink" name="choice" value="2">Duplicate this agreement agreement for a new agreement with @CustomerName</button></li>
+        <li><button type="submit" class="submitLink" name="choice" value="3">Duplicate this agreement for a new customer</button></li>
+    </ul>
+}

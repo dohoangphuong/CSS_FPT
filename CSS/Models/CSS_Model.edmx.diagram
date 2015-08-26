@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7e14fdf4b6ec49a8aef6b060b40d6019" Name="Diagram1">
+        <EntityTypeShape EntityType="CSSModel.Agreement" Width="1.5" PointX="6" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.AgreementStatu" Width="1.5" PointX="3.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.Banding" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.Comment" Width="1.5" PointX="8.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.CommentType" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.Company" Width="1.5" PointX="1.5" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.ContactAddress" Width="1.5" PointX="6" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.CreditNoteText" Width="1.5" PointX="8.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.CustomerType" Width="1.5" PointX="1.5" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.FundingMethod" Width="1.5" PointX="3.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.RFONumber" Width="1.5" PointX="3.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.RFOUser" Width="1.5" PointX="3.75" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.UserType" Width="1.5" PointX="1.5" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.Volume" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="CSSModel.FK__Agreement__Fundi__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.FK__Agreement__Statu__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.FK__Agreement__Volum__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.FK_Comment" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.FK_CreditNoteText" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.FK__Banding__VolumeI__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.FK__Comment__Comment__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.FK__RFONumber__Compa__15502E78" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.FK__ContactAd__UserI__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.FK__RFONumber__Custo__145C0A3F" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.FK__RFOUser__Manager__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.FK__RFOUser__UserTyp__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.AgreementDealer" ManuallyRouted="false" />
+        <AssociationConnector Association="CSSModel.AgreementRFO" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CSSModel.UserProfile" Width="1.5" PointX="1.102360306821" PointY="20.144420215927259" />
+        <EntityTypeShape EntityType="CSSModel.webpages_Membership" Width="1.5" PointX="5.1348246061870944" PointY="11.447216605510198" />
+        <EntityTypeShape EntityType="CSSModel.webpages_OAuthMembership" Width="1.5" PointX="3.775571863993803" PointY="12.77334100602816" />
+        <EntityTypeShape EntityType="CSSModel.webpages_Roles" Width="1.5" PointX="7.49790280661448" PointY="9.7095267668876453" />
+        <AssociationConnector Association="CSSModel.webpages_UsersInRoles" />
+        <EntityTypeShape EntityType="CSSModel.VolumeDiscountType" Width="1.5" PointX="0.75" PointY="0.875" />
+        <AssociationConnector Association="CSSModel.FK__Agreement__Volum__5CD6CB2B" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

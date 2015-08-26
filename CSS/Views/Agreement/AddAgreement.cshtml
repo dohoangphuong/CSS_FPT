@@ -1,0 +1,101 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Add agreement</title>
+    <link href="~/Content/themes/base/smart_wizard.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="~/Scripts/jquery-2.0.0.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.smartWizard.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#wizard').smartWizard();
+		});
+    </script>
+
+</head>
+<body>
+    <h2>Add agreement</h2>
+    <div id="wizard" class="swMain">
+        <ul>
+            <li>
+                <a href="#step-1">
+                    <label class="stepNumber">1</label>
+                    <span class="stepDesc">
+                        Customer<br />
+                        <small>Select customer</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-2">
+                    <label class="stepNumber">2</label>
+                    <span class="stepDesc">
+                        Basic<br />
+                        <small>Basic details</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-3">
+                    <label class="stepNumber">3</label>
+                    <span class="stepDesc">
+                        Dealers<br />
+                        <small>Select dealers</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-4">
+                    <label class="stepNumber">4</label>
+                    <span class="stepDesc">
+                        Volume<br />
+                        <small>Volume banding</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-5">
+                    <label class="stepNumber">5</label>
+                    <span class="stepDesc">
+                        Model Support<br />
+                        <small>Model Support</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-6">
+                    <label class="stepNumber">6</label>
+                    <span class="stepDesc">
+                        Misc Text<br />
+                        <small>Misc Text</small>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#step-7">
+                    <label class="stepNumber">7</label>
+                    <span class="stepDesc">
+                        Confirmation<br />
+                        <small>Confirmation</small>
+                    </span>
+                </a>
+            </li>
+        </ul>
+        <div id="step-1">
+            @{ Html.RenderAction("SelectCustomer"); }
+        </div>
+        <div id="step-2">
+        </div>
+        <div id="step-3">
+        </div>
+        <div id="step-4">
+        </div>
+        <div id="step-5">
+        </div>
+        <div id="step-6">
+        </div>
+        <div id="step-7">
+        </div>
+    </div>
+</body>
+</html>

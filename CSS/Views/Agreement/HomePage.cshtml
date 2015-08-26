@@ -1,0 +1,47 @@
+﻿@{
+    Layout=null;
+}
+@model IEnumerable<CSS.Models.Agreement>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name=" viewport" content="width=device-width" />
+    <title>HomePage</title>
+    <style>
+        .link {
+            color: green;
+            background-color: transparent;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <table class="table">
+            <tr>
+                <th>AgreementNumber</th>
+                <th>Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>StatusId </th>
+            </tr>
+            @foreach (CSS.Models.Agreement item in Model)
+            {
+                <tr>
+                    <td>@item.AgreementNumber </td>
+                    <td>@item.Name</td>
+                    <td>@item.StartDate</td>
+                    <td>@item.EndDate</td>
+                    <td>@item.StatusId</td>
+                    <td>
+                        @Html.ActionLink("ExtendAgreements", "ExtendAgreements/" + item.AgreementNumber, new { @class = "link" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

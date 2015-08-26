@@ -1,0 +1,1400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CSSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agreement">
+          <Key>
+            <PropertyRef Name="AgreementNumber" />
+            <PropertyRef Name="VariantNumber" />
+          </Key>
+          <Property Name="AgreementNumber" Type="int" Nullable="false" />
+          <Property Name="VariantNumber" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="LastStatusUpdatedDate" Type="date" />
+          <Property Name="AuthorisedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AuthorisedDate" Type="date" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastUpdatedDate" Type="date" />
+          <Property Name="LastUpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AMISAccountCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="HandlingCharge" Type="int" />
+          <Property Name="FundingMethodId" Type="int" />
+          <Property Name="SignRequired" Type="bit" />
+          <Property Name="SignReceived" Type="bit" />
+          <Property Name="SignReceivedDate" Type="date" />
+          <Property Name="DealerVisibility" Type="nvarchar" MaxLength="50" />
+          <Property Name="Combinability" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumberOfRegistrations" Type="int" />
+          <Property Name="VolumeId" Type="int" />
+          <Property Name="DiscountUnit" Type="int" />
+          <Property Name="VolumeDiscountTypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AgreementDealer">
+          <Key>
+            <PropertyRef Name="AgreementNumber" />
+            <PropertyRef Name="VariantNumber" />
+            <PropertyRef Name="DealerCode" />
+          </Key>
+          <Property Name="AgreementNumber" Type="int" Nullable="false" />
+          <Property Name="VariantNumber" Type="int" Nullable="false" />
+          <Property Name="DealerCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AgreementRFO">
+          <Key>
+            <PropertyRef Name="AgreementNumber" />
+            <PropertyRef Name="VariantNumber" />
+            <PropertyRef Name="RFONumber" />
+          </Key>
+          <Property Name="AgreementNumber" Type="int" Nullable="false" />
+          <Property Name="VariantNumber" Type="int" Nullable="false" />
+          <Property Name="RFONumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AgreementStatus">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgreementStatus" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Banding">
+          <Key>
+            <PropertyRef Name="BandingId" />
+          </Key>
+          <Property Name="BandingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VolumeId" Type="int" />
+          <Property Name="Min" Type="int" />
+          <Property Name="Max" Type="int" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgreementNumber" Type="int" />
+          <Property Name="VariantNumber" Type="int" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateTime" Type="datetime" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CommentTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="CommentType">
+          <Key>
+            <PropertyRef Name="CommentTypeId" />
+          </Key>
+          <Property Name="CommentTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommentType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Type" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="nvarchar" MaxLength="100" />
+          <Property Name="Sector" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="13" />
+          <Property Name="FaxNumber" Type="nvarchar" MaxLength="15" />
+          <Property Name="Emailaddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="AMISCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="BusinessArea" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ContactAddress">
+          <Key>
+            <PropertyRef Name="ContactAddressId" />
+          </Key>
+          <Property Name="ContactAddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Town" Type="nvarchar" MaxLength="50" />
+          <Property Name="County" Type="nvarchar" MaxLength="50" />
+          <Property Name="Postcode" Type="char" MaxLength="10" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobileNo" Type="varchar" MaxLength="12" />
+          <Property Name="OfficeNo" Type="varchar" MaxLength="12" />
+          <Property Name="FaxNo" Type="varchar" MaxLength="12" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address3" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CreditNoteText">
+          <Key>
+            <PropertyRef Name="CreditNoteTextId" />
+          </Key>
+          <Property Name="CreditNoteTextId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgreementNumber" Type="int" />
+          <Property Name="VariantNumber" Type="int" />
+          <Property Name="DateTime" Type="datetime" />
+          <Property Name="CreditNoteText" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="CustomerType">
+          <Key>
+            <PropertyRef Name="CustomerTypeId" />
+          </Key>
+          <Property Name="CustomerTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FundingMethod">
+          <Key>
+            <PropertyRef Name="FundingMethodId" />
+          </Key>
+          <Property Name="FundingMethodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FundingMethodName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FundingType" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContractTemplateLocation" Type="nvarchar" MaxLength="50" />
+          <Property Name="SignedContractDefault" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="AMISDeptCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="AMISReasonCode" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RFONumber">
+          <Key>
+            <PropertyRef Name="RFONumber" />
+          </Key>
+          <Property Name="RFONumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RFOName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerTypeId" Type="int" />
+          <Property Name="CompanyId" Type="int" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedDate" Type="date" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="PostCode" Type="char" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="RFOUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManagerId" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExtranetUser" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" />
+          <Property Name="UserTypeId" Type="int" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+          <Property Name="TargetNumberOfRegistrations" Type="int" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="56" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Volume">
+          <Key>
+            <PropertyRef Name="VolumeId" />
+          </Key>
+          <Property Name="VolumeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TriggerCredit" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymentTo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VolumeDiscountType">
+          <Key>
+            <PropertyRef Name="VolumeDiscountTypeId" />
+          </Key>
+          <Property Name="VolumeDiscountTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VolumeDiscountTypeName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="LastPasswordFailureDate" Type="datetime" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordChangedDate" Type="datetime" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Agreement__Deale__3A81B327">
+          <End Role="RFOUser" Type="Self.RFOUser" Multiplicity="1" />
+          <End Role="AgreementDealer" Type="Self.AgreementDealer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RFOUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="AgreementDealer">
+              <PropertyRef Name="DealerCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Agreement__Fundi__239E4DCF">
+          <End Role="FundingMethod" Type="Self.FundingMethod" Multiplicity="0..1" />
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FundingMethod">
+              <PropertyRef Name="FundingMethodId" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="FundingMethodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Agreement__RFONu__2E1BDC42">
+          <End Role="RFONumber" Type="Self.RFONumber" Multiplicity="1" />
+          <End Role="AgreementRFO" Type="Self.AgreementRFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RFONumber">
+              <PropertyRef Name="RFONumber" />
+            </Principal>
+            <Dependent Role="AgreementRFO">
+              <PropertyRef Name="RFONumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Agreement__Statu__22AA2996">
+          <End Role="AgreementStatus" Type="Self.AgreementStatus" Multiplicity="0..1" />
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgreementStatus">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Agreement__Volum__24927208">
+          <End Role="Volume" Type="Self.Volume" Multiplicity="0..1" />
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volume">
+              <PropertyRef Name="VolumeId" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="VolumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Agreement__Volum__5CD6CB2B">
+          <End Role="VolumeDiscountType" Type="Self.VolumeDiscountType" Multiplicity="1" />
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VolumeDiscountType">
+              <PropertyRef Name="VolumeDiscountTypeId" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="VolumeDiscountTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Banding__VolumeI__1FCDBCEB">
+          <End Role="Volume" Type="Self.Volume" Multiplicity="0..1" />
+          <End Role="Banding" Type="Self.Banding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volume">
+              <PropertyRef Name="VolumeId" />
+            </Principal>
+            <Dependent Role="Banding">
+              <PropertyRef Name="VolumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__Comment__276EDEB3">
+          <End Role="CommentType" Type="Self.CommentType" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CommentType">
+              <PropertyRef Name="CommentTypeId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CommentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ContactAd__UserI__37A5467C">
+          <End Role="RFOUser" Type="Self.RFOUser" Multiplicity="0..1" />
+          <End Role="ContactAddress" Type="Self.ContactAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RFOUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ContactAddress">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RFONumber__Compa__15502E78">
+          <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+          <End Role="RFONumber" Type="Self.RFONumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="RFONumber">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RFONumber__Custo__145C0A3F">
+          <End Role="CustomerType" Type="Self.CustomerType" Multiplicity="0..1" />
+          <End Role="RFONumber" Type="Self.RFONumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerType">
+              <PropertyRef Name="CustomerTypeId" />
+            </Principal>
+            <Dependent Role="RFONumber">
+              <PropertyRef Name="CustomerTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RFOUser__Manager__33D4B598">
+          <End Role="RFOUser" Type="Self.RFOUser" Multiplicity="0..1" />
+          <End Role="RFOUser1" Type="Self.RFOUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RFOUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RFOUser1">
+              <PropertyRef Name="ManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RFOUser__UserTyp__34C8D9D1">
+          <End Role="UserType" Type="Self.UserType" Multiplicity="0..1" />
+          <End Role="RFOUser" Type="Self.RFOUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="RFOUser">
+              <PropertyRef Name="UserTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgreementDealer">
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="1" />
+          <End Role="AgreementDealer" Type="Self.AgreementDealer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agreement">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Principal>
+            <Dependent Role="AgreementDealer">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgreementRFO">
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="1" />
+          <End Role="AgreementRFO" Type="Self.AgreementRFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agreement">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Principal>
+            <Dependent Role="AgreementRFO">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment">
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agreement">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditNoteText">
+          <End Role="Agreement" Type="Self.Agreement" Multiplicity="0..1" />
+          <End Role="CreditNoteText" Type="Self.CreditNoteText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agreement">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Principal>
+            <Dependent Role="CreditNoteText">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RoleId">
+          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserId">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CSSModelStoreContainer">
+          <EntitySet Name="Agreement" EntityType="Self.Agreement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgreementDealer" EntityType="Self.AgreementDealer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgreementRFO" EntityType="Self.AgreementRFO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AgreementStatus" EntityType="Self.AgreementStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Banding" EntityType="Self.Banding" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommentType" EntityType="Self.CommentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactAddress" EntityType="Self.ContactAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CreditNoteText" EntityType="Self.CreditNoteText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerType" EntityType="Self.CustomerType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FundingMethod" EntityType="Self.FundingMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RFONumber" EntityType="Self.RFONumber" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RFOUser" EntityType="Self.RFOUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Volume" EntityType="Self.Volume" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VolumeDiscountType" EntityType="Self.VolumeDiscountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Agreement__Deale__3A81B327" Association="Self.FK__Agreement__Deale__3A81B327">
+            <End Role="RFOUser" EntitySet="RFOUser" />
+            <End Role="AgreementDealer" EntitySet="AgreementDealer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Agreement__Fundi__239E4DCF" Association="Self.FK__Agreement__Fundi__239E4DCF">
+            <End Role="FundingMethod" EntitySet="FundingMethod" />
+            <End Role="Agreement" EntitySet="Agreement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Agreement__RFONu__2E1BDC42" Association="Self.FK__Agreement__RFONu__2E1BDC42">
+            <End Role="RFONumber" EntitySet="RFONumber" />
+            <End Role="AgreementRFO" EntitySet="AgreementRFO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Agreement__Statu__22AA2996" Association="Self.FK__Agreement__Statu__22AA2996">
+            <End Role="AgreementStatus" EntitySet="AgreementStatus" />
+            <End Role="Agreement" EntitySet="Agreement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Agreement__Volum__24927208" Association="Self.FK__Agreement__Volum__24927208">
+            <End Role="Volume" EntitySet="Volume" />
+            <End Role="Agreement" EntitySet="Agreement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Agreement__Volum__5CD6CB2B" Association="Self.FK__Agreement__Volum__5CD6CB2B">
+            <End Role="VolumeDiscountType" EntitySet="VolumeDiscountType" />
+            <End Role="Agreement" EntitySet="Agreement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Banding__VolumeI__1FCDBCEB" Association="Self.FK__Banding__VolumeI__1FCDBCEB">
+            <End Role="Volume" EntitySet="Volume" />
+            <End Role="Banding" EntitySet="Banding" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__Comment__276EDEB3" Association="Self.FK__Comment__Comment__276EDEB3">
+            <End Role="CommentType" EntitySet="CommentType" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ContactAd__UserI__37A5467C" Association="Self.FK__ContactAd__UserI__37A5467C">
+            <End Role="RFOUser" EntitySet="RFOUser" />
+            <End Role="ContactAddress" EntitySet="ContactAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RFONumber__Compa__15502E78" Association="Self.FK__RFONumber__Compa__15502E78">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="RFONumber" EntitySet="RFONumber" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RFONumber__Custo__145C0A3F" Association="Self.FK__RFONumber__Custo__145C0A3F">
+            <End Role="CustomerType" EntitySet="CustomerType" />
+            <End Role="RFONumber" EntitySet="RFONumber" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RFOUser__Manager__33D4B598" Association="Self.FK__RFOUser__Manager__33D4B598">
+            <End Role="RFOUser" EntitySet="RFOUser" />
+            <End Role="RFOUser1" EntitySet="RFOUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RFOUser__UserTyp__34C8D9D1" Association="Self.FK__RFOUser__UserTyp__34C8D9D1">
+            <End Role="UserType" EntitySet="UserType" />
+            <End Role="RFOUser" EntitySet="RFOUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgreementDealer" Association="Self.FK_AgreementDealer">
+            <End Role="Agreement" EntitySet="Agreement" />
+            <End Role="AgreementDealer" EntitySet="AgreementDealer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgreementRFO" Association="Self.FK_AgreementRFO">
+            <End Role="Agreement" EntitySet="Agreement" />
+            <End Role="AgreementRFO" EntitySet="AgreementRFO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment" Association="Self.FK_Comment">
+            <End Role="Agreement" EntitySet="Agreement" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditNoteText" Association="Self.FK_CreditNoteText">
+            <End Role="Agreement" EntitySet="Agreement" />
+            <End Role="CreditNoteText" EntitySet="CreditNoteText" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserId" Association="Self.fk_UserId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CSSModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CSSEntities1" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Agreements" EntityType="CSSModel.Agreement" />
+          <EntitySet Name="AgreementStatus" EntityType="CSSModel.AgreementStatu" />
+          <EntitySet Name="Bandings" EntityType="CSSModel.Banding" />
+          <EntitySet Name="Comments" EntityType="CSSModel.Comment" />
+          <EntitySet Name="CommentTypes" EntityType="CSSModel.CommentType" />
+          <EntitySet Name="Companies" EntityType="CSSModel.Company" />
+          <EntitySet Name="ContactAddresses" EntityType="CSSModel.ContactAddress" />
+          <EntitySet Name="CreditNoteTexts" EntityType="CSSModel.CreditNoteText" />
+          <EntitySet Name="CustomerTypes" EntityType="CSSModel.CustomerType" />
+          <EntitySet Name="FundingMethods" EntityType="CSSModel.FundingMethod" />
+          <EntitySet Name="RFONumbers" EntityType="CSSModel.RFONumber" />
+          <EntitySet Name="RFOUsers" EntityType="CSSModel.RFOUser" />
+          <EntitySet Name="UserTypes" EntityType="CSSModel.UserType" />
+          <EntitySet Name="Volumes" EntityType="CSSModel.Volume" />
+          <AssociationSet Name="FK__Agreement__Fundi__239E4DCF" Association="CSSModel.FK__Agreement__Fundi__239E4DCF">
+            <End Role="FundingMethod" EntitySet="FundingMethods" />
+            <End Role="Agreement" EntitySet="Agreements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Agreement__Statu__22AA2996" Association="CSSModel.FK__Agreement__Statu__22AA2996">
+            <End Role="AgreementStatus" EntitySet="AgreementStatus" />
+            <End Role="Agreement" EntitySet="Agreements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Agreement__Volum__24927208" Association="CSSModel.FK__Agreement__Volum__24927208">
+            <End Role="Volume" EntitySet="Volumes" />
+            <End Role="Agreement" EntitySet="Agreements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment" Association="CSSModel.FK_Comment">
+            <End Role="Agreement" EntitySet="Agreements" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CreditNoteText" Association="CSSModel.FK_CreditNoteText">
+            <End Role="Agreement" EntitySet="Agreements" />
+            <End Role="CreditNoteText" EntitySet="CreditNoteTexts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Banding__VolumeI__1FCDBCEB" Association="CSSModel.FK__Banding__VolumeI__1FCDBCEB">
+            <End Role="Volume" EntitySet="Volumes" />
+            <End Role="Banding" EntitySet="Bandings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__Comment__276EDEB3" Association="CSSModel.FK__Comment__Comment__276EDEB3">
+            <End Role="CommentType" EntitySet="CommentTypes" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RFONumber__Compa__15502E78" Association="CSSModel.FK__RFONumber__Compa__15502E78">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="RFONumber" EntitySet="RFONumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ContactAd__UserI__37A5467C" Association="CSSModel.FK__ContactAd__UserI__37A5467C">
+            <End Role="RFOUser" EntitySet="RFOUsers" />
+            <End Role="ContactAddress" EntitySet="ContactAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RFONumber__Custo__145C0A3F" Association="CSSModel.FK__RFONumber__Custo__145C0A3F">
+            <End Role="CustomerType" EntitySet="CustomerTypes" />
+            <End Role="RFONumber" EntitySet="RFONumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RFOUser__Manager__33D4B598" Association="CSSModel.FK__RFOUser__Manager__33D4B598">
+            <End Role="RFOUser" EntitySet="RFOUsers" />
+            <End Role="RFOUser1" EntitySet="RFOUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RFOUser__UserTyp__34C8D9D1" Association="CSSModel.FK__RFOUser__UserTyp__34C8D9D1">
+            <End Role="UserType" EntitySet="UserTypes" />
+            <End Role="RFOUser" EntitySet="RFOUsers" />
+          </AssociationSet>
+          <AssociationSet Name="AgreementDealer" Association="CSSModel.AgreementDealer">
+            <End Role="RFOUser" EntitySet="RFOUsers" />
+            <End Role="Agreement" EntitySet="Agreements" />
+          </AssociationSet>
+          <AssociationSet Name="AgreementRFO" Association="CSSModel.AgreementRFO">
+            <End Role="RFONumber" EntitySet="RFONumbers" />
+            <End Role="Agreement" EntitySet="Agreements" />
+          </AssociationSet>
+          <EntitySet Name="UserProfiles" EntityType="CSSModel.UserProfile" />
+          <EntitySet Name="webpages_Membership" EntityType="CSSModel.webpages_Membership" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="CSSModel.webpages_OAuthMembership" />
+          <EntitySet Name="webpages_Roles" EntityType="CSSModel.webpages_Roles" />
+          <AssociationSet Name="webpages_UsersInRoles" Association="CSSModel.webpages_UsersInRoles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <EntitySet Name="VolumeDiscountTypes" EntityType="CSSModel.VolumeDiscountType" />
+          <AssociationSet Name="FK__Agreement__Volum__5CD6CB2B" Association="CSSModel.FK__Agreement__Volum__5CD6CB2B">
+            <End Role="VolumeDiscountType" EntitySet="VolumeDiscountTypes" />
+            <End Role="Agreement" EntitySet="Agreements" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Agreement">
+          <Key>
+            <PropertyRef Name="AgreementNumber" />
+            <PropertyRef Name="VariantNumber" />
+          </Key>
+          <Property Name="AgreementNumber" Type="Int32" Nullable="false" />
+          <Property Name="VariantNumber" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="LastStatusUpdatedDate" Type="DateTime" Precision="0" />
+          <Property Name="AuthorisedBy" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="AuthorisedDate" Type="DateTime" Precision="0" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Precision="0" />
+          <Property Name="LastUpdatedBy" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="AMISAccountCode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="HandlingCharge" Type="Int32" />
+          <Property Name="FundingMethodId" Type="Int32" />
+          <Property Name="SignRequired" Type="Boolean" />
+          <Property Name="SignReceived" Type="Boolean" />
+          <Property Name="SignReceivedDate" Type="DateTime" Precision="0" />
+          <Property Name="DealerVisibility" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Combinability" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="NumberOfRegistrations" Type="Int32" />
+          <Property Name="VolumeId" Type="Int32" />
+          <Property Name="DiscountUnit" Type="Int32" />
+          <NavigationProperty Name="FundingMethod" Relationship="CSSModel.FK__Agreement__Fundi__239E4DCF" FromRole="Agreement" ToRole="FundingMethod" />
+          <NavigationProperty Name="AgreementStatu" Relationship="CSSModel.FK__Agreement__Statu__22AA2996" FromRole="Agreement" ToRole="AgreementStatus" />
+          <NavigationProperty Name="Volume" Relationship="CSSModel.FK__Agreement__Volum__24927208" FromRole="Agreement" ToRole="Volume" />
+          <NavigationProperty Name="Comments" Relationship="CSSModel.FK_Comment" FromRole="Agreement" ToRole="Comment" />
+          <NavigationProperty Name="CreditNoteTexts" Relationship="CSSModel.FK_CreditNoteText" FromRole="Agreement" ToRole="CreditNoteText" />
+          <NavigationProperty Name="RFOUsers" Relationship="CSSModel.AgreementDealer" FromRole="Agreement" ToRole="RFOUser" />
+          <NavigationProperty Name="RFONumbers" Relationship="CSSModel.AgreementRFO" FromRole="Agreement" ToRole="RFONumber" />
+          <Property Name="VolumeDiscountTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VolumeDiscountType" Relationship="CSSModel.FK__Agreement__Volum__5CD6CB2B" FromRole="Agreement" ToRole="VolumeDiscountType" />
+        </EntityType>
+        <EntityType Name="AgreementStatu">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="AgreementStatus" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Agreements" Relationship="CSSModel.FK__Agreement__Statu__22AA2996" FromRole="AgreementStatus" ToRole="Agreement" />
+        </EntityType>
+        <EntityType Name="Banding">
+          <Key>
+            <PropertyRef Name="BandingId" />
+          </Key>
+          <Property Name="BandingId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="VolumeId" Type="Int32" />
+          <Property Name="Min" Type="Int32" />
+          <Property Name="Max" Type="Int32" />
+          <NavigationProperty Name="Volume" Relationship="CSSModel.FK__Banding__VolumeI__1FCDBCEB" FromRole="Banding" ToRole="Volume" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="AgreementNumber" Type="Int32" />
+          <Property Name="VariantNumber" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <Property Name="Comment1" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <Property Name="CommentTypeId" Type="Int32" />
+          <NavigationProperty Name="Agreement" Relationship="CSSModel.FK_Comment" FromRole="Comment" ToRole="Agreement" />
+          <NavigationProperty Name="CommentType" Relationship="CSSModel.FK__Comment__Comment__276EDEB3" FromRole="Comment" ToRole="CommentType" />
+        </EntityType>
+        <EntityType Name="CommentType">
+          <Key>
+            <PropertyRef Name="CommentTypeId" />
+          </Key>
+          <Property Name="CommentTypeId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CommentType1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Comments" Relationship="CSSModel.FK__Comment__Comment__276EDEB3" FromRole="CommentType" ToRole="Comment" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyId" />
+          </Key>
+          <Property Name="CompanyId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Type" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Status" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Sector" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="13" Unicode="true" FixedLength="false" />
+          <Property Name="FaxNumber" Type="String" MaxLength="15" Unicode="true" FixedLength="false" />
+          <Property Name="Emailaddress" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="AMISCode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="BusinessArea" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="RFONumbers" Relationship="CSSModel.FK__RFONumber__Compa__15502E78" FromRole="Company" ToRole="RFONumber" />
+        </EntityType>
+        <EntityType Name="ContactAddress">
+          <Key>
+            <PropertyRef Name="ContactAddressId" />
+          </Key>
+          <Property Name="ContactAddressId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Town" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="County" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Postcode" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <Property Name="Country" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="MobileNo" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+          <Property Name="OfficeNo" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+          <Property Name="FaxNo" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+          <Property Name="Address1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Address2" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Address3" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="RFOUser" Relationship="CSSModel.FK__ContactAd__UserI__37A5467C" FromRole="ContactAddress" ToRole="RFOUser" />
+        </EntityType>
+        <EntityType Name="CreditNoteText">
+          <Key>
+            <PropertyRef Name="CreditNoteTextId" />
+          </Key>
+          <Property Name="CreditNoteTextId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="AgreementNumber" Type="Int32" />
+          <Property Name="VariantNumber" Type="Int32" />
+          <Property Name="DateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreditNoteText1" Type="String" MaxLength="1000" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Agreement" Relationship="CSSModel.FK_CreditNoteText" FromRole="CreditNoteText" ToRole="Agreement" />
+        </EntityType>
+        <EntityType Name="CustomerType">
+          <Key>
+            <PropertyRef Name="CustomerTypeId" />
+          </Key>
+          <Property Name="CustomerTypeId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerType1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="RFONumbers" Relationship="CSSModel.FK__RFONumber__Custo__145C0A3F" FromRole="CustomerType" ToRole="RFONumber" />
+        </EntityType>
+        <EntityType Name="FundingMethod">
+          <Key>
+            <PropertyRef Name="FundingMethodId" />
+          </Key>
+          <Property Name="FundingMethodId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FundingMethodName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FundingType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ContractTemplateLocation" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="SignedContractDefault" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Status" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="AMISDeptCode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="AMISReasonCode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Agreements" Relationship="CSSModel.FK__Agreement__Fundi__239E4DCF" FromRole="FundingMethod" ToRole="Agreement" />
+        </EntityType>
+        <EntityType Name="RFONumber">
+          <Key>
+            <PropertyRef Name="RFONumber1" />
+          </Key>
+          <Property Name="RFONumber1" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="RFOName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CustomerTypeId" Type="Int32" />
+          <Property Name="CompanyId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="PostCode" Type="String" MaxLength="10" Unicode="false" FixedLength="true" />
+          <NavigationProperty Name="Company" Relationship="CSSModel.FK__RFONumber__Compa__15502E78" FromRole="RFONumber" ToRole="Company" />
+          <NavigationProperty Name="CustomerType" Relationship="CSSModel.FK__RFONumber__Custo__145C0A3F" FromRole="RFONumber" ToRole="CustomerType" />
+          <NavigationProperty Name="Agreements" Relationship="CSSModel.AgreementRFO" FromRole="RFONumber" ToRole="Agreement" />
+        </EntityType>
+        <EntityType Name="RFOUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ManagerId" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExtranetUser" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="UserTypeId" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="TargetNumberOfRegistrations" Type="Int32" />
+          <NavigationProperty Name="ContactAddresses" Relationship="CSSModel.FK__ContactAd__UserI__37A5467C" FromRole="RFOUser" ToRole="ContactAddress" />
+          <NavigationProperty Name="RFOUser1" Relationship="CSSModel.FK__RFOUser__Manager__33D4B598" FromRole="RFOUser" ToRole="RFOUser1" />
+          <NavigationProperty Name="RFOUser2" Relationship="CSSModel.FK__RFOUser__Manager__33D4B598" FromRole="RFOUser1" ToRole="RFOUser" />
+          <NavigationProperty Name="UserType" Relationship="CSSModel.FK__RFOUser__UserTyp__34C8D9D1" FromRole="RFOUser" ToRole="UserType" />
+          <NavigationProperty Name="Agreements" Relationship="CSSModel.AgreementDealer" FromRole="RFOUser" ToRole="Agreement" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="RFOUsers" Relationship="CSSModel.FK__RFOUser__UserTyp__34C8D9D1" FromRole="UserType" ToRole="RFOUser" />
+        </EntityType>
+        <EntityType Name="Volume">
+          <Key>
+            <PropertyRef Name="VolumeId" />
+          </Key>
+          <Property Name="VolumeId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="TriggerCredit" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="PaymentTo" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Agreements" Relationship="CSSModel.FK__Agreement__Volum__24927208" FromRole="Volume" ToRole="Agreement" />
+          <NavigationProperty Name="Bandings" Relationship="CSSModel.FK__Banding__VolumeI__1FCDBCEB" FromRole="Volume" ToRole="Banding" />
+        </EntityType>
+        <Association Name="FK__Agreement__Fundi__239E4DCF">
+          <End Role="FundingMethod" Type="CSSModel.FundingMethod" Multiplicity="0..1" />
+          <End Role="Agreement" Type="CSSModel.Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FundingMethod">
+              <PropertyRef Name="FundingMethodId" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="FundingMethodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Agreement__Statu__22AA2996">
+          <End Role="AgreementStatus" Type="CSSModel.AgreementStatu" Multiplicity="0..1" />
+          <End Role="Agreement" Type="CSSModel.Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgreementStatus">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Agreement__Volum__24927208">
+          <End Role="Volume" Type="CSSModel.Volume" Multiplicity="0..1" />
+          <End Role="Agreement" Type="CSSModel.Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volume">
+              <PropertyRef Name="VolumeId" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="VolumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment">
+          <End Role="Agreement" Type="CSSModel.Agreement" Multiplicity="0..1" />
+          <End Role="Comment" Type="CSSModel.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agreement">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CreditNoteText">
+          <End Role="Agreement" Type="CSSModel.Agreement" Multiplicity="0..1" />
+          <End Role="CreditNoteText" Type="CSSModel.CreditNoteText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agreement">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Principal>
+            <Dependent Role="CreditNoteText">
+              <PropertyRef Name="AgreementNumber" />
+              <PropertyRef Name="VariantNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Banding__VolumeI__1FCDBCEB">
+          <End Role="Volume" Type="CSSModel.Volume" Multiplicity="0..1" />
+          <End Role="Banding" Type="CSSModel.Banding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volume">
+              <PropertyRef Name="VolumeId" />
+            </Principal>
+            <Dependent Role="Banding">
+              <PropertyRef Name="VolumeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__Comment__276EDEB3">
+          <End Role="CommentType" Type="CSSModel.CommentType" Multiplicity="0..1" />
+          <End Role="Comment" Type="CSSModel.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CommentType">
+              <PropertyRef Name="CommentTypeId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="CommentTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RFONumber__Compa__15502E78">
+          <End Role="Company" Type="CSSModel.Company" Multiplicity="0..1" />
+          <End Role="RFONumber" Type="CSSModel.RFONumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyId" />
+            </Principal>
+            <Dependent Role="RFONumber">
+              <PropertyRef Name="CompanyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ContactAd__UserI__37A5467C">
+          <End Role="RFOUser" Type="CSSModel.RFOUser" Multiplicity="0..1" />
+          <End Role="ContactAddress" Type="CSSModel.ContactAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RFOUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ContactAddress">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RFONumber__Custo__145C0A3F">
+          <End Role="CustomerType" Type="CSSModel.CustomerType" Multiplicity="0..1" />
+          <End Role="RFONumber" Type="CSSModel.RFONumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerType">
+              <PropertyRef Name="CustomerTypeId" />
+            </Principal>
+            <Dependent Role="RFONumber">
+              <PropertyRef Name="CustomerTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RFOUser__Manager__33D4B598">
+          <End Role="RFOUser" Type="CSSModel.RFOUser" Multiplicity="0..1" />
+          <End Role="RFOUser1" Type="CSSModel.RFOUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RFOUser">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="RFOUser1">
+              <PropertyRef Name="ManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RFOUser__UserTyp__34C8D9D1">
+          <End Role="UserType" Type="CSSModel.UserType" Multiplicity="0..1" />
+          <End Role="RFOUser" Type="CSSModel.RFOUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserType">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="RFOUser">
+              <PropertyRef Name="UserTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AgreementDealer">
+          <End Role="RFOUser" Type="CSSModel.RFOUser" Multiplicity="*" />
+          <End Role="Agreement" Type="CSSModel.Agreement" Multiplicity="*" />
+        </Association>
+        <Association Name="AgreementRFO">
+          <End Role="RFONumber" Type="CSSModel.RFONumber" Multiplicity="*" />
+          <End Role="Agreement" Type="CSSModel.Agreement" Multiplicity="*" />
+        </Association>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="webpages_Roles" Relationship="CSSModel.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Precision="3" />
+          <Property Type="String" Name="ConfirmationToken" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsConfirmed" />
+          <Property Type="DateTime" Name="LastPasswordFailureDate" Precision="3" />
+          <Property Type="Int32" Name="PasswordFailuresSinceLastSuccess" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PasswordChangedDate" Precision="3" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordVerificationToken" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PasswordVerificationTokenExpirationDate" Precision="3" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Type="String" Name="Provider" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ProviderUserId" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Type="Int32" Name="RoleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfiles" Relationship="CSSModel.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="webpages_UsersInRoles">
+          <End Type="CSSModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
+          <End Type="CSSModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+        </Association>
+        <EntityType Name="VolumeDiscountType">
+          <Key>
+            <PropertyRef Name="VolumeDiscountTypeId" />
+          </Key>
+          <Property Name="VolumeDiscountTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VolumeDiscountTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Agreements" Relationship="CSSModel.FK__Agreement__Volum__5CD6CB2B" FromRole="VolumeDiscountType" ToRole="Agreement" />
+        </EntityType>
+        <Association Name="FK__Agreement__Volum__5CD6CB2B">
+          <End Type="CSSModel.VolumeDiscountType" Role="VolumeDiscountType" Multiplicity="1" />
+          <End Type="CSSModel.Agreement" Role="Agreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VolumeDiscountType">
+              <PropertyRef Name="VolumeDiscountTypeId" />
+            </Principal>
+            <Dependent Role="Agreement">
+              <PropertyRef Name="VolumeDiscountTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CSSModelStoreContainer" CdmEntityContainer="CSSEntities1">
+          <EntitySetMapping Name="Agreements">
+            <EntityTypeMapping TypeName="CSSModel.Agreement">
+              <MappingFragment StoreEntitySet="Agreement">
+                <ScalarProperty Name="VolumeDiscountTypeId" ColumnName="VolumeDiscountTypeId" />
+                <ScalarProperty Name="AgreementNumber" ColumnName="AgreementNumber" />
+                <ScalarProperty Name="VariantNumber" ColumnName="VariantNumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="LastStatusUpdatedDate" ColumnName="LastStatusUpdatedDate" />
+                <ScalarProperty Name="AuthorisedBy" ColumnName="AuthorisedBy" />
+                <ScalarProperty Name="AuthorisedDate" ColumnName="AuthorisedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
+                <ScalarProperty Name="AMISAccountCode" ColumnName="AMISAccountCode" />
+                <ScalarProperty Name="HandlingCharge" ColumnName="HandlingCharge" />
+                <ScalarProperty Name="FundingMethodId" ColumnName="FundingMethodId" />
+                <ScalarProperty Name="SignRequired" ColumnName="SignRequired" />
+                <ScalarProperty Name="SignReceived" ColumnName="SignReceived" />
+                <ScalarProperty Name="SignReceivedDate" ColumnName="SignReceivedDate" />
+                <ScalarProperty Name="DealerVisibility" ColumnName="DealerVisibility" />
+                <ScalarProperty Name="Combinability" ColumnName="Combinability" />
+                <ScalarProperty Name="NumberOfRegistrations" ColumnName="NumberOfRegistrations" />
+                <ScalarProperty Name="VolumeId" ColumnName="VolumeId" />
+                <ScalarProperty Name="DiscountUnit" ColumnName="DiscountUnit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgreementStatus">
+            <EntityTypeMapping TypeName="CSSModel.AgreementStatu">
+              <MappingFragment StoreEntitySet="AgreementStatus">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="AgreementStatus" ColumnName="AgreementStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bandings">
+            <EntityTypeMapping TypeName="CSSModel.Banding">
+              <MappingFragment StoreEntitySet="Banding">
+                <ScalarProperty Name="BandingId" ColumnName="BandingId" />
+                <ScalarProperty Name="VolumeId" ColumnName="VolumeId" />
+                <ScalarProperty Name="Min" ColumnName="Min" />
+                <ScalarProperty Name="Max" ColumnName="Max" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="CSSModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="AgreementNumber" ColumnName="AgreementNumber" />
+                <ScalarProperty Name="VariantNumber" ColumnName="VariantNumber" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="Comment1" ColumnName="Comment" />
+                <ScalarProperty Name="CommentTypeId" ColumnName="CommentTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommentTypes">
+            <EntityTypeMapping TypeName="CSSModel.CommentType">
+              <MappingFragment StoreEntitySet="CommentType">
+                <ScalarProperty Name="CommentTypeId" ColumnName="CommentTypeId" />
+                <ScalarProperty Name="CommentType1" ColumnName="CommentType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="CSSModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Sector" ColumnName="Sector" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="FaxNumber" ColumnName="FaxNumber" />
+                <ScalarProperty Name="Emailaddress" ColumnName="Emailaddress" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AMISCode" ColumnName="AMISCode" />
+                <ScalarProperty Name="BusinessArea" ColumnName="BusinessArea" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactAddresses">
+            <EntityTypeMapping TypeName="CSSModel.ContactAddress">
+              <MappingFragment StoreEntitySet="ContactAddress">
+                <ScalarProperty Name="ContactAddressId" ColumnName="ContactAddressId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Town" ColumnName="Town" />
+                <ScalarProperty Name="County" ColumnName="County" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="OfficeNo" ColumnName="OfficeNo" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address3" ColumnName="Address3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CreditNoteTexts">
+            <EntityTypeMapping TypeName="CSSModel.CreditNoteText">
+              <MappingFragment StoreEntitySet="CreditNoteText">
+                <ScalarProperty Name="CreditNoteTextId" ColumnName="CreditNoteTextId" />
+                <ScalarProperty Name="AgreementNumber" ColumnName="AgreementNumber" />
+                <ScalarProperty Name="VariantNumber" ColumnName="VariantNumber" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="CreditNoteText1" ColumnName="CreditNoteText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerTypes">
+            <EntityTypeMapping TypeName="CSSModel.CustomerType">
+              <MappingFragment StoreEntitySet="CustomerType">
+                <ScalarProperty Name="CustomerTypeId" ColumnName="CustomerTypeId" />
+                <ScalarProperty Name="CustomerType1" ColumnName="CustomerType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FundingMethods">
+            <EntityTypeMapping TypeName="CSSModel.FundingMethod">
+              <MappingFragment StoreEntitySet="FundingMethod">
+                <ScalarProperty Name="FundingMethodId" ColumnName="FundingMethodId" />
+                <ScalarProperty Name="FundingMethodName" ColumnName="FundingMethodName" />
+                <ScalarProperty Name="FundingType" ColumnName="FundingType" />
+                <ScalarProperty Name="ContractTemplateLocation" ColumnName="ContractTemplateLocation" />
+                <ScalarProperty Name="SignedContractDefault" ColumnName="SignedContractDefault" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AMISDeptCode" ColumnName="AMISDeptCode" />
+                <ScalarProperty Name="AMISReasonCode" ColumnName="AMISReasonCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RFONumbers">
+            <EntityTypeMapping TypeName="CSSModel.RFONumber">
+              <MappingFragment StoreEntitySet="RFONumber">
+                <ScalarProperty Name="RFONumber1" ColumnName="RFONumber" />
+                <ScalarProperty Name="RFOName" ColumnName="RFOName" />
+                <ScalarProperty Name="CustomerTypeId" ColumnName="CustomerTypeId" />
+                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RFOUsers">
+            <EntityTypeMapping TypeName="CSSModel.RFOUser">
+              <MappingFragment StoreEntitySet="RFOUser">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ExtranetUser" ColumnName="ExtranetUser" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TargetNumberOfRegistrations" ColumnName="TargetNumberOfRegistrations" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="CSSModel.UserType">
+              <MappingFragment StoreEntitySet="UserType">
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
+                <ScalarProperty Name="UserType1" ColumnName="UserType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Volumes">
+            <EntityTypeMapping TypeName="CSSModel.Volume">
+              <MappingFragment StoreEntitySet="Volume">
+                <ScalarProperty Name="VolumeId" ColumnName="VolumeId" />
+                <ScalarProperty Name="TriggerCredit" ColumnName="TriggerCredit" />
+                <ScalarProperty Name="PaymentTo" ColumnName="PaymentTo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AgreementDealer" TypeName="CSSModel.AgreementDealer" StoreEntitySet="AgreementDealer">
+            <EndProperty Name="RFOUser">
+              <ScalarProperty Name="UserId" ColumnName="DealerCode" />
+            </EndProperty>
+            <EndProperty Name="Agreement">
+              <ScalarProperty Name="AgreementNumber" ColumnName="AgreementNumber" />
+              <ScalarProperty Name="VariantNumber" ColumnName="VariantNumber" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="AgreementRFO" TypeName="CSSModel.AgreementRFO" StoreEntitySet="AgreementRFO">
+            <EndProperty Name="RFONumber">
+              <ScalarProperty Name="RFONumber1" ColumnName="RFONumber" />
+            </EndProperty>
+            <EndProperty Name="Agreement">
+              <ScalarProperty Name="AgreementNumber" ColumnName="AgreementNumber" />
+              <ScalarProperty Name="VariantNumber" ColumnName="VariantNumber" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="CSSModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Membership">
+            <EntityTypeMapping TypeName="CSSModel.webpages_Membership">
+              <MappingFragment StoreEntitySet="webpages_Membership">
+                <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+                <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_OAuthMembership">
+            <EntityTypeMapping TypeName="CSSModel.webpages_OAuthMembership">
+              <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="CSSModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="CSSModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+            <EndProperty Name="UserProfile">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="webpages_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="VolumeDiscountTypes">
+            <EntityTypeMapping TypeName="CSSModel.VolumeDiscountType">
+              <MappingFragment StoreEntitySet="VolumeDiscountType">
+                <ScalarProperty Name="VolumeDiscountTypeName" ColumnName="VolumeDiscountTypeName" />
+                <ScalarProperty Name="VolumeDiscountTypeId" ColumnName="VolumeDiscountTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

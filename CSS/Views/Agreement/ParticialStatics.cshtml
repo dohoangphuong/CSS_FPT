@@ -1,0 +1,29 @@
+﻿@model IEnumerable<CSS.Models.AgreementStatu>
+
+@{
+    ViewBag.Title = "AgreementStatics";
+    Layout = null;
+}
+
+<div class="centre">
+    <h3 class="blue-text">Coporate Sales Solution</h3>
+    <p class="gray-text">Recent activity</p>
+</div>
+
+<table class="table table-striped static-table">
+    <thead>
+        <tr class="info">
+            <th>Agreement</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        { 
+            <tr>
+                <td>@Html.ActionLink(@item.AgreementStatus, "Search", new { statusId = @item.StatusId})</td>
+                <td>@item.Agreements.Where(x=> (x.CreatedBy == @User.Identity.Name) && ((DateTime.Now - (DateTime)x.LastUpdatedDate).TotalDays < 1)).Count()</td>
+            </tr>
+        }
+    </tbody>
+</table>

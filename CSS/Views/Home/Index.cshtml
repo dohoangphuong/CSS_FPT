@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@if(ViewBag.error != 0)
+{
+    <div class="alert-block">The user name or password provided is incorrect.</div>
+}
+
+@if (Request.IsAuthenticated)
+{
+    Html.RenderAction("HomePage", "Agreement");
+}

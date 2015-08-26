@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CSS.ViewModels.SearchCustomer>
+
+@{
+    ViewBag.Title = "SearchCustomerResults";
+    Layout = null;
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.RFONumber)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.SelectedCustomerType.CustomerType1)</th>
+            <th>@Html.DisplayNameFor(model => model.PostCode)</th>
+            <th>@Html.DisplayNameFor(model => model.BusinessArea)</th>
+            <th>@Html.DisplayNameFor(model => model.IsSelected)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.RFONumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.SelectedCustomerType.CustomerType1)</td>
+                <td>@Html.DisplayFor(modelItem => item.PostCode)</td>
+                <td>@Html.DisplayFor(modelItem => item.BusinessArea)</td>
+                <td>@Html.RadioButtonFor(modelItem => item.IsSelected, item.RFONumber)</td>
+            </tr>
+        }
+    </tbody>
+</table>
