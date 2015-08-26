@@ -288,19 +288,19 @@ namespace CSS.Controllers
             return View(db.Agreements);
         }
 
-        public ActionResult ExtendAgreements(int id)
+        public ActionResult ExtendAgreements(int id, int ivar)
         {
             ExtendAgreement extendModel = new ExtendAgreement();
-            Agreement iAgr = db.Agreements.Single(m => m.AgreementNumber.Equals(id));
+            Agreement iAgr = db.Agreements.Single(x => x.AgreementNumber == id && x.VariantNumber == ivar);
+            
             if (iAgr.RFONumbers.Count > 0)
                 extendModel.RFONumber = iAgr.RFONumbers.First().RFONumber1;
             extendModel.Name = iAgr.Name;
             extendModel.AgreementNumber = iAgr.AgreementNumber;
             extendModel.VariantNumber = iAgr.VariantNumber;
-            //string istart = String.Format("{0:MM/dd/yyyy}", iAgr.StartDate);
-            //m_Extend.StartDate = (DateTime)DateTime.Parse(istart);
             extendModel.StartDate = (DateTime)iAgr.StartDate;
             extendModel.EndDate = (DateTime)iAgr.EndDate;
+
             return View(extendModel);
         }
 

@@ -135,7 +135,7 @@
                     <tr>
                         <th>Start Date</th>
                         <td>
-                            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", @id = "StartDate", @Value = @Model.StartDate.ToShortDateString() })
+                            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", @id = "StartDate", @Value = @Model.StartDate.ToString("MM/dd/yyyy")})
                             @Html.ValidationMessageFor(model => model.StartDate)
                         </td>
                     </tr>
@@ -143,7 +143,7 @@
 
                         <th>End Date</th>
                         <td>
-                            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", @id = "EndDate", @Value = @Model.EndDate.ToShortDateString()})
+                            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", @id = "EndDate", @Value = @Model.EndDate.ToString("MM/dd/yyyy") })
                             @Html.ValidationMessageFor(model => model.EndDate)
                         </td>
                     </tr>
