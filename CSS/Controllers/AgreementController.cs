@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using CSS.Models;
 using CSS.ViewModels;
+using System.Net.Mail;
+using System.Net;
 
 namespace CSS.Controllers
 {
@@ -306,19 +308,61 @@ namespace CSS.Controllers
 
         public ActionResult ExtendAgreement()
         {
-             ExtendAgreement extendModel = new ExtendAgreement();
-             if (TryUpdateModel(extendModel))
-             {
-                 int iNumber = extendModel.AgreementNumber;
-                 Agreement NewAgreement = db.Agreements.AsNoTracking().Single(x => x.AgreementNumber == extendModel.AgreementNumber && x.VariantNumber == extendModel.VariantNumber);
+            ExtendAgreement extendModel = new ExtendAgreement();
+            if (TryUpdateModel(extendModel))
+            {
+                Agreement NewAgreement = db.Agreements.AsNoTracking().Single(x => x.AgreementNumber == extendModel.AgreementNumber && x.VariantNumber == extendModel.VariantNumber);
 
-                 NewAgreement.VariantNumber = db.Agreements.Where(x => x.AgreementNumber == extendModel.AgreementNumber).OrderByDescending(x => x.VariantNumber).First().VariantNumber + 1;
-                 NewAgreement.StatusId = 1;
-                 NewAgreement.StartDate = extendModel.StartDate;
-                 NewAgreement.EndDate = extendModel.EndDate;
-                 db.Agreements.Add(NewAgreement);
-                 db.SaveChanges();
-             }
+                ////Add new agreement
+                //NewAgreement.VariantNumber = db.Agreements.Where(x => x.AgreementNumber == extendModel.AgreementNumber).OrderByDescending(x => x.VariantNumber).First().VariantNumber + 1;
+                //NewAgreement.StatusId = 1;
+                //NewAgreement.StartDate = extendModel.StartDate;
+                //NewAgreement.EndDate = extendModel.EndDate;
+
+                ////add agreementRFO
+                //NewAgreement.RFONumbers = db.Agreements.Find(extendModel.AgreementNumber, extendModel.VariantNumber).RFONumbers;
+
+                //send email
+                Company CompanySendEmail= db.Companies.Find(db.Agreements.Find(extendModel.AgreementNumber, extendModel.VariantNumber).RFONumbers.First().CompanyId);
+
+                string smtpAddress = "smtp.mail.yahoo.com";
+                int portNumber = 587;
+                bool enableSSL = true;
+
+                string emailFrom = "phuong_css@yahoo.com.vn";
+                string password = "taikhoancss";
+                //string emailTo = "abc";//db.Agreements.Find(extendModel.AgreementNumber, extendModel.VariantNumber).RFONumbers.First().CompanyId;
+                string emailTo = CompanySendEmail.Emailaddress;
+
+                string subject = "Hello, " + CompanySendEmail.Name;
+                string body = "We are System Administrator. We wanted inform with you.\n" + "The system been create new variant based on the previous agreement and add new entry to audit trail.";
+
+                using (MailMessage mail = new MailMessage())
+                {
+                    mail.From = new MailAddress(emailFrom);
+                    mail.To.Add(emailTo);
+                    mail.Subject = subject;
+                    mail.Body = body;
+                    mail.IsBodyHtml = true;
+                    // Can set to false, if you are sending pure text.
+
+                    //mail.Attachments.Add(new Attachment("C:\\SomeFile.txt"));
+                    //mail.Attachments.Add(new Attachment("C:\\SomeZip.zip"));
+
+                    using (SmtpClient smtp = new SmtpClient(smtpAddress, portNumber))
+                    {
+                        smtp.Credentials = new NetworkCredential(emailFrom, password);
+                        smtp.EnableSsl = enableSSL;
+                        smtp.Send(mail);
+                    }
+
+                    //discounts
+
+                    //save
+                    //db.Agreements.Add(NewAgreement);
+                    //db.SaveChanges();
+                }
+            }
             //RedirectToAction: trả về hàm index-> để show ra trang chính
             return RedirectToAction("HomePage");
         }

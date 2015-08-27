@@ -11,7 +11,6 @@ namespace CSS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
     
     public partial class Agreement
     {
@@ -22,13 +21,7 @@ namespace CSS.Models
             this.RFOUsers = new HashSet<RFOUser>();
             this.RFONumbers = new HashSet<RFONumber>();
         }
-
-        public Agreement(Agreement agreement, int newAgreementNumber, int newVariant)
-        {
-            this.AgreementNumber = newAgreementNumber;
-            this.VariantNumber = newVariant;
-        }
-
+    
         public int AgreementNumber { get; set; }
         public int VariantNumber { get; set; }
         public string Name { get; set; }

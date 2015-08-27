@@ -83,8 +83,8 @@
         function checkDate(iStartDate, iEndDate) {
             var StartDate = document.getElementById(iStartDate).value;
             var EndDate = document.getElementById(iEndDate).value;
-
-            if (StartDate > EndDate) {
+           
+            if (Date.parse(StartDate) > Date.parse(EndDate)) {
                 alert("Please enter the end date larger the start and try again!");
                 return false;
             }
