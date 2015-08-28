@@ -397,6 +397,7 @@
     <Content Include="Views\Agreement\CompleteAgreements.cshtml" />
     <Content Include="Views\Agreement\ExtendAgreements.cshtml" />
     <Content Include="Views\Agreement\HomePage.cshtml" />
+    <Content Include="Views\Agreement\Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

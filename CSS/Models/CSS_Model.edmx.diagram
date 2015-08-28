@@ -5,14 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7e14fdf4b6ec49a8aef6b060b40d6019" Name="Diagram1" ZoomLevel="85">
-        <EntityTypeShape EntityType="CSSModel.Agreement" Width="1.5" PointX="6" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.Agreement" Width="2.25" PointX="6" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="CSSModel.AgreementStatu" Width="2.25" PointX="2.125" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CSSModel.Banding" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CSSModel.Comment" Width="1.5" PointX="8.25" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CSSModel.CommentType" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CSSModel.Company" Width="1.5" PointX="1.5" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CSSModel.ContactAddress" Width="1.5" PointX="6" PointY="22.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSSModel.CreditNoteText" Width="1.5" PointX="8.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CSSModel.CreditNoteText" Width="2.25" PointX="8.25" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="CSSModel.CustomerType" Width="1.5" PointX="1.5" PointY="20" IsExpanded="true" />
         <EntityTypeShape EntityType="CSSModel.FundingMethod" Width="1.5" PointX="3.125" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CSSModel.RFONumber" Width="1.5" PointX="3.75" PointY="17" IsExpanded="true" />
@@ -34,7 +34,7 @@
         <AssociationConnector Association="CSSModel.AgreementDealer" ManuallyRouted="false" />
         <AssociationConnector Association="CSSModel.AgreementRFO" ManuallyRouted="false" />
         <EntityTypeShape EntityType="CSSModel.UserProfile" Width="1.5" PointX="1" PointY="21.75" />
-        <EntityTypeShape EntityType="CSSModel.webpages_Membership" Width="1.5" PointX="4.625" PointY="11.75" />
+        <EntityTypeShape EntityType="CSSModel.webpages_Membership" Width="2" PointX="4.625" PointY="11.75" />
         <EntityTypeShape EntityType="CSSModel.webpages_OAuthMembership" Width="1.5" PointX="1.25" PointY="12.375" />
         <EntityTypeShape EntityType="CSSModel.webpages_Roles" Width="1.5" PointX="8.75" PointY="12.875" />
         <AssociationConnector Association="CSSModel.webpages_UsersInRoles" />

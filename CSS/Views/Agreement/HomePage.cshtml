@@ -28,7 +28,9 @@
                 <th>End Date</th>
                 <th>StatusId </th>
                 <th>CompanyId </th>
+                <th>Hadling Charge </th>
             </tr>
+           
             @foreach (CSS.Models.Agreement item in Model)
             {
                 <tr>
@@ -38,6 +40,7 @@
                     <td>@item.EndDate</td>
                     <td>@item.StatusId</td>
                     <td>@item.RFONumbers.First().CompanyId</td>
+                    <td>@item.HandlingCharge</td>
 
                     <td>
                         @Html.ActionLink("ExtendAgreements", "ExtendAgreements" , new { @class = "link", @id = item.AgreementNumber, @ivar=item.VariantNumber})

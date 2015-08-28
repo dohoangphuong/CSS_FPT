@@ -1,0 +1,142 @@
+﻿@model CSS.Models.Agreement
+
+@{
+    ViewBag.Title = "AgreementStatics";
+    int? RFONumber = null;
+    string CustomerName = null;
+    string BusinessArea = null;
+    if(Model.RFONumbers.Count > 0)
+    {
+        RFONumber = Model.RFONumbers.First().RFONumber1;
+        CustomerName = Model.RFONumbers.First().Company.Name;
+        BusinessArea = Model.RFONumbers.First().Company.BusinessArea;
+    }
+}
+
+@Html.HiddenFor(m=>m.RFONumbers)
+<ul style="list-style-type:none">
+    <li>
+        <label class="width20">RFO Number</label>
+        <label class="width20 blue-text">@RFONumber</label>
+    </li>
+    <li>
+        <label class="width20">Customer Name</label>
+        <label class="width20 blue-text">@CustomerName</label>
+    </li>
+    <li>
+        <label class="width20">Start - End</label>
+        <label class="width20 blue-text">
+            @(Model.StartDate != null? Model.StartDate.Value.ToShortDateString() : null) - 
+            @(Model.EndDate != null? Model.EndDate.Value.ToShortDateString() : null)
+        </label>
+    </li>
+    <li>
+        <label class="width20">Status</label>
+        <label class="width20 blue-text btn-like">@Model.AgreementStatu.AgreementStatus</label>
+    </li>
+</ul>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+    <li role="presentation"><a href="#dealer" aria-controls="dealer" role="tab" data-toggle="tab">Dealer</a></li>
+    <li role="presentation"><a href="#modelSupport" aria-controls="modelSupport" role="tab" data-toggle="tab">Model support</a></li>
+    <li role="presentation"><a href="#miscText" aria-controls="miscText" role="tab" data-toggle="tab">Misc text</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active tab-conent" id="overview">
+        <ul style="list-style-type:none">
+            <li>
+                <label class="width20">Busines Area</label>
+                <label class="width20 blue-text">@BusinessArea</label>
+            </li>
+            <li>
+                <label class="width20">Busines Area Code</label>
+                <label class="width20 blue-text">???</label>
+            </li>
+            <li>
+                <label class="width20">Agreement Details</label>
+                <label class="width20 blue-text">@Model.Description</label>
+            </li>
+            <li>
+                <label class="width20">Created By</label>
+                <label class="width20 blue-text">@Model.CreatedBy</label>
+            </li>
+            <li>
+                <label class="width20">Created Date</label>
+                <label class="width20 blue-text">@(Model.CreatedDate != null? Model.CreatedDate.Value.ToShortDateString() : null)</label>
+            </li>
+            <li>
+                <label class="width20">Authorised By</label>
+                <label class="width20 blue-text">@Model.AuthorisedBy</label>
+            </li>
+            <li>
+                <label class="width20">Authorised Date</label>
+                <label class="width20 blue-text">@(Model.AuthorisedDate != null? Model.AuthorisedDate.Value.ToShortDateString() : "")</label>
+            </li>
+            <li>
+                <label class="width20">Signed agreement required?</label>
+                <label class="width20 blue-text">@(Model.SignRequired == null ? null : (Model.SignRequired == true? "YES" : "NO"))</label>
+            </li>
+            <li>
+                <label class="width20">Charge code</label>
+                <label class="width20 blue-text">???</label>
+            </li>
+            <li>
+                <label class="width20">Payment To</label>
+                <label class="width20 blue-text">@(Model.Volume != null? Model.Volume.PaymentTo : null)</label>
+            </li>
+            <li>
+                <label class="width20">Handing Charge</label>
+                <label class="width20 blue-text">@Model.HandlingCharge</label>
+            </li>
+            <li>
+                <label class="width20">Agenda Payment</label>
+                <label class="width20 blue-text">???</label>
+            </li>
+        </ul>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="dealer">
+        @if(Model.RFOUsers.Count > 0)
+        {
+            <ul style="list-style-type:none">
+                <li>
+                    <label class="width20">Dealer Code</label>
+                    <label class="width20 blue-text">@Model.RFOUsers.First().UserId</label>
+                </li>
+                <li>
+                    <label class="width20">Dealer Name</label>
+                    <label class="width20 blue-text">@Model.RFOUsers.First().FirstName @Model.RFOUsers.First().LastName</label>
+                </li>
+                <li>
+                    <label class="width20">Town</label>
+                    <label class="width20 blue-text">@(Model.RFOUsers.First().ContactAddresses != null? Model.RFOUsers.First().ContactAddresses.First().Town : null)</label>
+                </li>
+                <li>
+                    <label class="width20">Town</label>
+                    <label class="width20 blue-text">@(Model.RFOUsers.First().ContactAddresses != null? Model.RFOUsers.First().ContactAddresses.First().Country : null)</label>
+                </li>
+            </ul>
+        }
+        else
+        {
+            <p>No dealer selected</p>
+        }
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="modelSupport">
+        <p>OUT OF SCOPE</p>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="miscText">
+        <ul style="list-style-type:none">
+            <li>
+                <label class="width20">Credit Note Comments</label>
+                <label class="width20 blue-text">@(Model.CreditNoteTexts.Count > 0? Model.CreditNoteTexts.First().CreditNoteText1 : null)</label>
+            </li>
+            <li>
+                <label class="width20">Support Justification</label>
+                <label class="width20 blue-text">@(Model.Comments.Count > 0? Model.Comments.First().Comment1 : null)</label>
+            </li>
+        </ul>
+    </div>
+  </div>
