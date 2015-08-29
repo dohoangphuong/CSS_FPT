@@ -17,7 +17,8 @@ namespace CSS.ViewModels
         public DateTime StartDate { get; set; }
         [DisplayFormat(DataFormatString = "{0:mm/dd/yyyy}", ApplyFormatInEditMode = true)]
         [Required]
-        public DateTime EndDate{get;set;}
+        public DateTime EndDate { get; set; }
+        public int StatusId { get; set; }
 
         public ExtendAgreement()
         {

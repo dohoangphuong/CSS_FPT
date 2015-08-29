@@ -84,11 +84,36 @@
             var StartDate = document.getElementById(iStartDate).value;
             var EndDate = document.getElementById(iEndDate).value;
            
-            if (Date.parse(StartDate) > Date.parse(EndDate)) {
+            if (Date.parse(EndDate) < Date.parse(StartDate)) {
                 alert("Please enter the end date larger the start and try again!");
                 return false;
             }
-            alert("Complete!")
+            
+            return true;
+        }
+
+        function checkDateConfir(iEndDate, iStatusId) {
+            var StatusId = document.getElementById(iStatusId).value;
+            var current = new Date();
+            var end = new Date(document.getElementById(iEndDate).value);
+
+            //Status = “approved”;
+            if (StatusId != 4) {
+                alert("Status of an agreement doesn't 'approved'");
+                return false;
+            }
+            
+            //current day + 30-> if(end -curren > 30)
+            current.setDate(current.getDate() + 30);
+
+            if (Date.parse(end) > Date.parse(current)) {
+                alert("End Date larger current Date 30 days. Can not be perform");
+                return false;
+            }
+            
+            if (confirm("There are less than 30 days left on this agreement, are you sure you would like to terminate") == false)
+                return false;
+
             return true;
         }
     </script>
@@ -131,6 +156,8 @@
                         <td>@Html.DisplayFor(m => m.AgreementNumber)</td>
                         <td>@Html.TextBoxFor(model => model.AgreementNumber, new { @type="hidden" })</td>
                         <td>@Html.TextBoxFor(model => model.VariantNumber, new { @type = "hidden" })</td>
+                        <td>@Html.TextBoxFor(model => model.StatusId, new { @type = "hidden" })</td>
+
                     </tr>
                     <tr>
                         <th>Start Date</th>
@@ -154,6 +181,7 @@
                     <button id="Ok" class="button" type="submit" onclick="return checkDate('StartDate', 'EndDate')"><b>»Submit</b></button>
                     <button id="Cancle" class="button" onclick="return confirm('Are you sure?')"><b>»Cancel</b></button>
                 </div>
+                @Html.ActionLink("Confirmation", "Confirmation", new { @class = "link", @id = Model.AgreementNumber, @ivar = Model.VariantNumber }, new { onclick = "return checkDateConfir('EndDate','StatusId')" })
             </div>
         }
     </div>

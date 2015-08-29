@@ -302,6 +302,7 @@ namespace CSS.Controllers
             extendModel.VariantNumber = iAgr.VariantNumber;
             extendModel.StartDate = (DateTime)iAgr.StartDate;
             extendModel.EndDate = (DateTime)iAgr.EndDate;
+            extendModel.StatusId = (int)iAgr.StatusId;
 
             return View(extendModel);
         }
@@ -369,6 +370,16 @@ namespace CSS.Controllers
             }
             //RedirectToAction: trả về hàm index-> để show ra trang chính
             return RedirectToAction("HomePage");
+        }
+
+        public ActionResult Confirmation(int id, int ivar)
+        {
+            Agreement iAgr = db.Agreements.Single(x => x.AgreementNumber == id && x.VariantNumber == ivar);
+
+            iAgr.StatusId = 6;//"Discontinued"
+            db.SaveChanges();
+
+            return View(iAgr);
         }
     }
 }
