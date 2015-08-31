@@ -1,0 +1,82 @@
+﻿@model CSS.Models.Company
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CompleteAgreements</title>
+    <style>
+        .body {
+            border: 1px solid grey;
+            width: 800px;
+            height: 400px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .left, .th, .td {
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        .title {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            color: #FF0000;
+            font-size: 30px;
+        }
+
+        .link {
+            color: green;
+            background-color: transparent;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        table, th, td {
+            border-collapse: collapse;
+            width: 500px;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+            margin-right: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+        <div class="title">
+            <b>CORPORATE SALES SOLUTION</b>
+        </div>
+        <br />
+        <div class="center">
+            <b>Agreement Complete</b>
+        </div>
+        <br />
+        <div class="left">
+            <div>Thank you for creating the agreement.</div>
+            <div>The agreement has been add to a be authorised by <b>@Html.DisplayFor(model=>model.Name)</b></div>
+        </div>
+
+        <div class="right">
+            <a class="link" href="html_images.asp" target="_blank">» View Agreement</a>
+            <a class="link" href="html_images.asp" target="_blank">» Print</a>
+            <a class="link" href="html_images.asp" target="_blank">» Email</a>
+            <a class="link" href="html_images.asp" target="_blank">» Fax</a>
+        </div>
+    </div>
+</body>
+</html>

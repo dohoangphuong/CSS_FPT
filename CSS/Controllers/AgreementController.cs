@@ -290,7 +290,7 @@ namespace CSS.Controllers
             return View(db.Agreements);
         }
 
-        public ActionResult ExtendAgreements(int id, int ivar)
+        public ActionResult ExtendAgreement(int id, int ivar)
         {
             ExtendAgreement extendModel = new ExtendAgreement();
             Agreement iAgr = db.Agreements.Single(x => x.AgreementNumber == id && x.VariantNumber == ivar);
@@ -307,79 +307,126 @@ namespace CSS.Controllers
             return View(extendModel);
         }
 
-        public ActionResult ExtendAgreement()
+        //------------send email------------
+        private void SendEmail(string iEmailTo, string iSubject, string iBody)
+        {
+            if (iEmailTo != null)
+            {
+                string smtpAddress = "smtp.mail.yahoo.com";
+                int portNumber = 587;
+                bool enableSSL = true;
+
+                string emailFrom = "phuong_css@yahoo.com.vn";
+                string password = "taikhoancss";
+                string emailTo = iEmailTo;
+
+                string subject = iSubject;
+                string body = iBody;
+
+                using (MailMessage mail = new MailMessage())
+                {
+                    mail.From = new MailAddress(emailFrom);
+                    mail.To.Add(emailTo);
+                    mail.Subject = subject;
+                    mail.Body = body;
+                    mail.IsBodyHtml = true;
+
+                    using (SmtpClient smtp = new SmtpClient(smtpAddress, portNumber))
+                    {
+                        smtp.Credentials = new NetworkCredential(emailFrom, password);
+                        smtp.EnableSsl = enableSSL;
+                        smtp.Send(mail);
+                    }
+                }
+            }
+        }
+
+        public ActionResult DisposeExtendAgreement()
         {
             ExtendAgreement extendModel = new ExtendAgreement();
             if (TryUpdateModel(extendModel))
             {
-                Agreement NewAgreement = db.Agreements.AsNoTracking().Single(x => x.AgreementNumber == extendModel.AgreementNumber && x.VariantNumber == extendModel.VariantNumber);
+                //Agreement NewAgreement = db.Agreements.AsNoTracking().Single(x => x.AgreementNumber == extendModel.AgreementNumber && x.VariantNumber == extendModel.VariantNumber);
 
-                //------------Add new agreement------------
-                NewAgreement.VariantNumber = db.Agreements.Where(x => x.AgreementNumber == extendModel.AgreementNumber).OrderByDescending(x => x.VariantNumber).First().VariantNumber + 1;
-                NewAgreement.StatusId = 1;
-                NewAgreement.StartDate = extendModel.StartDate;
-                NewAgreement.EndDate = extendModel.EndDate;
-                //add agreementRFO
-                NewAgreement.RFONumbers = db.Agreements.Find(extendModel.AgreementNumber, extendModel.VariantNumber).RFONumbers;
+                ////------------Add new agreement------------
+                //NewAgreement.VariantNumber = db.Agreements.Where(x => x.AgreementNumber == extendModel.AgreementNumber).OrderByDescending(x => x.VariantNumber).First().VariantNumber + 1;
+                //NewAgreement.StatusId = 1;
+                //NewAgreement.StartDate = extendModel.StartDate;
+                //NewAgreement.EndDate = extendModel.EndDate;
+                ////add agreementRFO
+                //NewAgreement.RFONumbers = db.Agreements.Find(extendModel.AgreementNumber, extendModel.VariantNumber).RFONumbers;
 
-                //------------send email------------
-                Company CompanySendEmail = db.Companies.Find(db.Agreements.Find(extendModel.AgreementNumber, extendModel.VariantNumber).RFONumbers.First().CompanyId);
-                if (CompanySendEmail.Emailaddress != null)
-                {
-                    string smtpAddress = "smtp.mail.yahoo.com";
-                    int portNumber = 587;
-                    bool enableSSL = true;
 
-                    string emailFrom = "phuong_css@yahoo.com.vn";
-                    string password = "taikhoancss";
-                    string emailTo = CompanySendEmail.Emailaddress;
+                ////------------send email------------
+                //Company CompanySendEmail = db.Companies.Find(db.Agreements.Find(extendModel.AgreementNumber, extendModel.VariantNumber).RFONumbers.First().CompanyId);
 
-                    string subject = "Hello, " + CompanySendEmail.Name;
-                    string body = "We are System Administrator. We wanted inform with you.\n" + "The system been create new variant based on the previous agreement and add new entry to audit trail."
-                        + " New variant  have AgreementNumber = " + NewAgreement.AgreementNumber + ", VariantNumber = " + NewAgreement.VariantNumber;
+                //string subject = "Hello, " + CompanySendEmail.Name + ".";
+                //string body = "We are System Administrator. We wanted inform with you.\n" + "The system been create new variant based on the previous agreement and add new entry to audit trail."
+                //    + " New variant  have AgreementNumber = " + NewAgreement.AgreementNumber + ", VariantNumber = " + NewAgreement.VariantNumber;
+                //SendEmail(CompanySendEmail.Emailaddress, subject, body);
 
-                    using (MailMessage mail = new MailMessage())
-                    {
-                        mail.From = new MailAddress(emailFrom);
-                        mail.To.Add(emailTo);
-                        mail.Subject = subject;
-                        mail.Body = body;
-                        mail.IsBodyHtml = true;
+                ////------------discounts: Replace UC11------------
+                //if (extendModel.EndDate < DateTime.Now)
+                //{
+                //    int afterCharge = (int)NewAgreement.HandlingCharge - (int)NewAgreement.DiscountUnit;
+                //    if (afterCharge < 0)
+                //        afterCharge = 0;
+                //    NewAgreement.HandlingCharge = afterCharge;
+                //}
 
-                        using (SmtpClient smtp = new SmtpClient(smtpAddress, portNumber))
-                        {
-                            smtp.Credentials = new NetworkCredential(emailFrom, password);
-                            smtp.EnableSsl = enableSSL;
-                            smtp.Send(mail);
-                        }
-                    }
-                }
-
-                //------------discounts: Replace UC11------------
-                if (extendModel.EndDate < DateTime.Now)
-                {
-                    int afterCharge = (int)NewAgreement.HandlingCharge - (int)NewAgreement.DiscountUnit;
-                    if (afterCharge < 0)
-                        afterCharge = 0;
-                    NewAgreement.HandlingCharge = afterCharge;
-                }
-
-                //------------save------------
-                db.Agreements.Add(NewAgreement);
-                db.SaveChanges();
+                ////------------save------------
+                //db.Agreements.Add(NewAgreement);
+                //db.SaveChanges();
             }
             //RedirectToAction: trả về hàm index-> để show ra trang chính
             return RedirectToAction("HomePage");
         }
 
-        public ActionResult Confirmation(int id, int ivar)
+        // UC 06
+        public ActionResult TerminateAgreement(int id, int ivar)
         {
             Agreement iAgr = db.Agreements.Single(x => x.AgreementNumber == id && x.VariantNumber == ivar);
 
-            iAgr.StatusId = 6;//"Discontinued"
-            db.SaveChanges();
+            //if (iAgr.StatusId == 4)
+            //{
+            //    iAgr.StatusId = 6;//"Discontinued"
+            //    db.SaveChanges();
+
+            //    //------------send email------------
+            //    Company CompanySendEmail = db.Companies.Find(db.Agreements.Find(iAgreementNumber, iVariantNumber).RFONumbers.First().CompanyId);
+
+            //    string subject = "Hello, " + CompanySendEmail.Name + ".";
+            //    string body = "We are System Administrator. We wanted inform with you. System been change agreement status to 'Discontinued'. The agreement"
+            //        + " have AgreementNumber = " + iAgreementNumber + " and VariantNumber = " + iVariantNumber;
+
+            //    SendEmail(CompanySendEmail.Emailaddress, subject, body);
+            //}
 
             return View(iAgr);
+        }
+
+        //UC 07
+        public ActionResult CompleteAgreement(int iAgreementNumber, int iVariantNumber)
+        {
+            Agreement iAgr = db.Agreements.Single(x => x.AgreementNumber == iAgreementNumber && x.VariantNumber == iVariantNumber);
+            Company CompanySendEmail = db.Companies.Find(db.Agreements.Find(iAgreementNumber, iVariantNumber).RFONumbers.First().CompanyId);
+
+            //if (iAgr.StatusId == 1)
+            //{
+            //    iAgr.StatusId = 2;//"Draft"
+            //    db.SaveChanges();
+            //}
+
+            //------------send email------------
+            //
+
+            //string subject = "Hello, " + CompanySendEmail.Name + ".";
+            //string body = "We are System Administrator. We wanted inform with you. System been change agreement status to 'Discontinued'. The agreement"
+            //    + " have AgreementNumber = " + iAgreementNumber + " and VariantNumber = " + iVariantNumber;
+
+            //SendEmail(CompanySendEmail.Emailaddress, subject, body);
+
+            return View(CompanySendEmail);
         }
     }
 }

@@ -1,0 +1,206 @@
+﻿@model CSS.ViewModels.ExtendAgreement
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ExtendAgreements</title>
+    <style>
+        .body {
+            border: 1px solid grey;
+            width: 800px;
+            height: 400px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .left, .th, .td {
+            text-align: left;
+            margin-left: 20px;
+        }
+
+        .title {
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            color: #FF0000;
+            font-size: 30px;
+        }
+
+        .link {
+            color: green;
+            background-color: transparent;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        table, th, td {
+            border-collapse: collapse;
+            width: 500px;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+            margin-right: 30px;
+        }
+
+        .button {
+            width: 80px;
+            height: 30px;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            color: green;
+            font-size: 15px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#StartDate").datepicker({ dateFormat: "mm/dd/yy" }).val()
+            $("#EndDate").datepicker({ dateFormat: "mm/dd/yy" }).val()
+        });
+        jQuery.validator.methods.date = function (value, element) {
+            var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+            if (isChrome) {
+                var d = new Date();
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
+            } else {
+                return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+            }
+        };
+
+        function checkDate(iStartDate, iEndDate) {
+            var StartDate = document.getElementById(iStartDate).value;
+            var EndDate = document.getElementById(iEndDate).value;
+           
+            if (Date.parse(EndDate) < Date.parse(StartDate)) {
+                alert("Please enter the end date larger the start and try again!");
+                return false;
+            }
+            
+            return true;
+        }
+
+        function checkDateTerminate(iEndDate, iStatusId) {
+            var StatusId = document.getElementById(iStatusId).value;
+            var current = new Date();
+            var end = new Date(document.getElementById(iEndDate).value);
+
+            //Status = “approved”;
+            if (StatusId != 4) {
+                alert("Status of an agreement doesn't 'approved'");
+                return false;
+            }
+            
+            //current day + 30-> if(end -curren > 30)
+            current.setDate(current.getDate() + 30);
+
+            if (Date.parse(end) > Date.parse(current)) {
+                alert("End Date larger current Date 30 days. Can not be perform");
+                return false;
+            }
+            
+            if (confirm("There are less than 30 days left on this agreement, are you sure you would like to terminate") == false)
+                return false;
+
+            return true;
+        }
+
+        //screen SubmitAgreement
+        function checkDateSubmit(iStatusId) {
+            var StatusId = document.getElementById(iStatusId).value;
+
+            //Status = “approved”;
+            if (StatusId != 1) {
+                alert("Status of an agreement doesn't 'Draft'");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+</head>
+<body>
+    <div class="body">
+
+
+        <div class="title">
+            <b>CORPORATE SALES SOLUTION</b>
+        </div>
+        <br />
+        <div class="center">
+            <b>Extend Agreement</b>
+        </div>
+        <br />
+
+        @using (Html.BeginForm("DisposeExtendAgreement", "Agreement", FormMethod.Post))
+        {
+            <div class="left">
+                <table>
+                    <tr>
+                        <th>RFO Number</th>
+                        @if (Model.RFONumber != null)
+                        {
+                            <td>
+                                @Html.DisplayFor(m => m.RFONumber)
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        <th>Customer Name</th>
+                        <td>
+                            @Html.DisplayFor(m => m.Name)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Agreement Number</th>
+                        <td>@Html.DisplayFor(m => m.AgreementNumber)</td>
+                        <td>@Html.TextBoxFor(model => model.AgreementNumber, new { @type="hidden" })</td>
+                        <td>@Html.TextBoxFor(model => model.VariantNumber, new { @type = "hidden" })</td>
+                        <td>@Html.TextBoxFor(model => model.StatusId, new { @type = "hidden" })</td>
+
+                    </tr>
+                    <tr>
+                        <th>Start Date</th>
+                        <td>
+                            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", @id = "StartDate", @Value = @Model.StartDate.ToString("MM/dd/yyyy")})
+                            @Html.ValidationMessageFor(model => model.StartDate)
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <th>End Date</th>
+                        <td>
+                            @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control", @id = "EndDate", @Value = @Model.EndDate.ToString("MM/dd/yyyy") })
+                            @Html.ValidationMessageFor(model => model.EndDate)
+                        </td>
+                    </tr>
+                </table>
+
+
+                <div class="right">
+                    <button id="Ok" class="button" type="submit" onclick="return checkDate('StartDate', 'EndDate')"><b>»Submit</b></button>
+                    <button id="Cancle" class="button" onclick="return confirm('Are you sure?')"><b>»Cancel</b></button>
+                </div>
+                @Html.ActionLink("TerminateAgreement", "TerminateAgreement", new { @class = "link", @id = Model.AgreementNumber, @ivar = Model.VariantNumber }, new { onclick = "return checkDateTerminate('EndDate','StatusId')" })
+                <div>
+                    @*SubmitAgreement *@
+                    @Html.ActionLink("CompleteAgreement", "CompleteAgreement", new { @class = "link", @iAgreementNumber = Model.AgreementNumber, @iVariantNumber = Model.VariantNumber }, new { onclick = "return checkDateSubmit('StatusId')" })
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>
